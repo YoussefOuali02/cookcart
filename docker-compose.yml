@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: cookcart_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: cookcart
+      POSTGRES_PASSWORD: cookcart_password
+      POSTGRES_DB: cookcart_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - cookcart_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  cookcart_postgres_data:
