@@ -2,23 +2,23 @@
 
 ## Day 1
 
-- [ ] Create project folder
-- [ ] Initialize Git
-- [ ] Create README
-- [ ] Create docs folder
-- [ ] Create product document
-- [ ] Create roadmap document
-- [ ] Create database document
-- [ ] Create API document
-- [ ] Create docker-compose.yml
-- [ ] Create first Git commit
+- [x] Create project folder
+- [x] Initialize Git
+- [x] Create README
+- [x] Create docs folder
+- [x] Create product document
+- [x] Create roadmap document
+- [x] Create database document
+- [x] Create API document
+- [x] Create docker-compose.yml
+- [x] Create first Git commit
 
 ## Day 2
 
-- [ ] Set up NestJS API
-- [ ] Set up PostgreSQL with Docker
-- [ ] Set up Prisma
-- [ ] Connect API to database
+- [x] Set up NestJS API
+- [x] Set up PostgreSQL with Docker
+- [x] Set up Prisma
+- [x] Connect API to database
 
 ## Day 3
 
