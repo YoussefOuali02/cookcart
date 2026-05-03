@@ -6,10 +6,10 @@ CookCart is a B2B SaaS platform for grocery stores that allows customers to choo
 
 The objective of this project is to build a complete real-world SaaS product from scratch.
 
-The project has two goals:
+The project has one goal:
 
 1. Try to validate and sell the product to grocery stores.
-2. Use the project as a strong portfolio case study for high-salary full-stack software engineering jobs.
+
 
 ## Core Idea
 
