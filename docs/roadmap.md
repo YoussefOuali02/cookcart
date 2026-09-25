@@ -1,119 +1,169 @@
 # CookCart Roadmap
 
+Status legend: Done, In progress, Not started.
+
 ## Phase 0: Project Setup
 
 Goal: Create a clean project foundation.
 
+Status: Done
+
 Tasks:
 
-- Create repository
-- Create documentation
-- Define MVP
-- Set up folder structure
-- Prepare backend and frontend setup
-
-Status: In progress
+- [x] Create repository
+- [x] Create documentation
+- [x] Define MVP
+- [x] Set up folder structure
+- [x] Prepare backend and frontend setup
 
 ## Phase 1: Backend Foundation
 
 Goal: Build the core API.
 
+Status: Done
+
 Tasks:
 
-- Set up NestJS
-- Set up PostgreSQL
-- Set up Prisma
-- Create authentication
-- Create user model
-- Create ingredient model
-- Create meal model
-- Create pantry model
-- Create order model
+- [x] Set up NestJS
+- [x] Set up PostgreSQL
+- [x] Set up Prisma
+- [x] Create authentication (register, login, JWT guard, roles)
+- [x] Create user model
+- [x] Create ingredient model
+- [x] Create meal model
+- [x] Create pantry model
+- [x] Create order model (schema only — no endpoints yet, see Phase 2)
 
 ## Phase 2: Core Meal Kit Logic
 
-Goal: Build the heart of CookCart.
+Goal: Build the heart of CookCart, end to end through checkout.
+
+Status: In progress
 
 Tasks:
 
-- Create meal ingredients
-- Compare meal ingredients with user pantry
-- Generate missing ingredient list
-- Calculate price
-- Calculate nutrition
-- Add customized meal kit to cart
+- [x] Create meal ingredients (admin can assign ingredients + quantities to a meal)
+- [x] Compare meal ingredients with user pantry (`POST /meals/:id/preview-kit`)
+- [x] Generate missing ingredient list (`includedInOrder` per ingredient)
+- [x] Calculate price (`totalPrice` from `Ingredient.pricePerUnit`)
+- [ ] Calculate nutrition (sum `caloriesPer100g`/protein/carbs/fat for the meal, scaled by quantity — not started)
+- [ ] Cart APIs: `GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`
+  - Adding a meal to cart should snapshot the preview-kit result into `CartMeal`/`CartIngredient` (quantity, unit, price, `isRemovedByUser`) so the customer can toggle ingredients in the cart without recomputing against a pantry that may change.
+- [ ] `POST /cart/checkout`: converts the current cart into an `Order` + `OrderItem` rows, clears the cart, returns the created order.
+- [ ] Order APIs: `GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel` (customer, own orders only).
+- [ ] Admin order APIs: `GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`.
+
+This phase is the remaining backend work blocking a real end-to-end demo (Step 9 below).
 
 ## Phase 3: Customer Web App
 
 Goal: Build the first customer-facing version.
 
+Status: Not started
+
 Tasks:
 
-- Landing page
-- Login and register
-- Meal list
-- Meal details
-- Pantry page
-- Cart page
-- Orders page
+- [ ] Scaffold `apps/web` (Next.js + TypeScript + Tailwind), wired to the API with a typed client and JWT stored client-side.
+- [ ] Landing page
+- [ ] Login and register pages
+- [ ] Meal list (cards: image, name, cooking time, price estimate, calories)
+- [ ] Meal details page (ingredients with "remove — I already have it" checkboxes, calling `preview-kit` live, final price, add to cart)
+- [ ] Pantry page (add/edit/remove pantry items)
+- [ ] Cart page (review kit, toggle removed ingredients, checkout)
+- [ ] Orders page (order history + status)
+
+Depends on the Cart/Order APIs in Phase 2.
 
 ## Phase 4: Admin Dashboard
 
 Goal: Allow grocery store admins to manage the system.
 
+Status: Not started
+
 Tasks:
 
-- Admin dashboard
-- Ingredient management
-- Meal management
-- Meal ingredient editor
-- Order management
-- Basic analytics
+- [ ] Admin shell (`/admin`), gated by the `ADMIN` role
+- [ ] Ingredient management (list/create/edit/delete)
+- [ ] Meal management (list/create/edit, assign ingredients with quantities)
+- [ ] Order management (list, view detail, update status)
+- [ ] Basic analytics (order counts, revenue — keep minimal for MVP)
+
+Can start in parallel with the later parts of Phase 3 once auth and the admin API surface exist (they already do).
+
+## Milestone: First Product Demo (roadmap Step 9)
+
+Goal: Record the full customer + admin flow working end to end in the real UI (not curl).
+
+Status: Not started — blocked on Phases 2–4
+
+Flow to demo:
+
+1. Admin creates ingredients
+2. Admin creates a meal
+3. User registers/logs in
+4. User adds ingredients to pantry
+5. User opens a meal, sees required ingredients minus what they have
+6. User removes ingredients they already have
+7. User adds the kit to cart and places the order
+8. Admin sees the order
+9. Admin updates status to Preparing
 
 ## Phase 5: QR Code System
 
 Goal: Add QR-enabled ingredient package details.
 
+Status: Not started
+
 Tasks:
 
-- Generate QR codes
-- Link QR codes to order items
-- Create QR detail page
-- Show ingredient and cooking details
+- [ ] Generate a QR code per order item
+- [ ] QR opens `/qr/:code`
+- [ ] `/qr/:code` page shows ingredient details and the relevant cooking step
+- [ ] No package printing in v1
 
 ## Phase 6: Mobile App
 
 Goal: Build the mobile app.
 
+Status: Not started
+
 Tasks:
 
-- React Native setup
-- Authentication
-- Meals
-- Pantry
-- Cart
-- Orders
-- QR scanner
+- [ ] React Native / Expo setup (`apps/mobile`)
+- [ ] Authentication
+- [ ] Meals
+- [ ] Meal details
+- [ ] Pantry
+- [ ] Cart
+- [ ] Orders
+- [ ] QR scanner
+- [ ] Cooking instructions
+
+Uses the same backend as web — no new API work expected beyond what Phases 2–5 already built.
 
 ## Phase 7: AI Recommendation Assistant
 
-Goal: Add intelligent meal suggestions.
+Goal: Add intelligent meal suggestions, after the product already works.
+
+Status: Not started
 
 Tasks:
 
-- Recommend meals based on goal
-- Recommend meals based on pantry
-- Recommend meals based on diet
-- Explain recommendations with AI
+- [ ] Suggest 3 meals based on user goal, diet type, and pantry ingredients
+- [ ] Explain each recommendation in plain language
+
+Guardrail: AI never controls prices, allergies, or core ordering logic — recommendation only.
 
 ## Phase 8: SaaS Business Layer
 
 Goal: Prepare the app for real grocery stores.
 
+Status: Not started
+
 Tasks:
 
-- Multi-store support
-- Store subscription plans
-- Store onboarding
-- Stripe subscriptions
-- Platform admin
+- [ ] Multi-store support
+- [ ] Store subscription plans
+- [ ] Store onboarding
+- [ ] Stripe subscriptions
+- [ ] Platform admin

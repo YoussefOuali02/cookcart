@@ -42,3 +42,49 @@
 ## Day 7
 
 - [x] Build meal kit preview endpoint
+
+The 7-day backend sprint above is complete. The tasks below continue
+from it; see `docs/roadmap.md` for the full phase-level plan beyond
+Week 3 (QR, mobile, AI, SaaS layer).
+
+## Day 8
+
+- [ ] Build cart APIs (`GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`)
+- [ ] Adding a meal snapshots the preview-kit result into `CartMeal`/`CartIngredient`
+
+## Day 9
+
+- [ ] Build `POST /cart/checkout` (cart -> Order + OrderItems)
+- [ ] Build customer order APIs (`GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel`)
+- [ ] Build admin order APIs (`GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`)
+
+Backend is now complete enough for the full customer + admin flow —
+still API-only, no UI.
+
+## Day 10
+
+- [ ] Scaffold `apps/web` (Next.js + TypeScript + Tailwind) with a typed API client and JWT storage
+- [ ] Landing page
+- [ ] Login and register pages
+
+## Day 11
+
+- [ ] Meals list page
+- [ ] Meal details page (live preview-kit, remove-ingredient checkboxes, add to cart)
+
+## Day 12
+
+- [ ] Pantry page
+- [ ] Cart page (toggle removed ingredients, checkout)
+- [ ] Orders page
+
+## Day 13
+
+- [ ] Admin shell (`/admin`, role-gated)
+- [ ] Admin ingredients page
+- [ ] Admin meals page (create/edit, assign ingredients)
+
+## Day 14
+
+- [ ] Admin orders page (list, update status)
+- [ ] Record the first full product demo end to end in the real UI (roadmap Step 9)
