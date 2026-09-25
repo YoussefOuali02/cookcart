@@ -29,7 +29,7 @@
 
 ## Day 4
 
-- [ ] Build authentication
+- [x] Build authentication
 
 ## Day 5
 
