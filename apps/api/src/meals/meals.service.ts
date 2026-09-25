@@ -5,6 +5,7 @@ import { IngredientsService } from '../ingredients/ingredients.service';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
 import { AddMealIngredientDto } from './dto/add-meal-ingredient.dto';
+import { MealKitPreview } from './interfaces/meal-kit-preview.interface';
 
 const mealWithIngredients = Prisma.validator<Prisma.MealDefaultArgs>()({
   include: { ingredients: { include: { ingredient: true } } },
@@ -82,6 +83,47 @@ export class MealsService {
         cookingStep: dto.cookingStep,
       },
     });
+  }
+
+  async previewKit(mealId: string, userId: string): Promise<MealKitPreview> {
+    const meal = await this.findById(mealId);
+
+    const pantryItems = await this.prisma.pantryItem.findMany({
+      where: { userId },
+    });
+    const pantryByIngredientId = new Map(
+      pantryItems.map((item) => [item.ingredientId, item]),
+    );
+
+    let totalPrice = 0;
+    const ingredients = meal.ingredients.map((mealIngredient) => {
+      const pantryItem = pantryByIngredientId.get(mealIngredient.ingredientId);
+      const userHasIt = Boolean(
+        pantryItem &&
+        (pantryItem.alwaysAvailable ||
+          pantryItem.quantity >= mealIngredient.quantity),
+      );
+      const includedInOrder = !userHasIt;
+
+      if (includedInOrder) {
+        totalPrice +=
+          mealIngredient.quantity * mealIngredient.ingredient.pricePerUnit;
+      }
+
+      return {
+        name: mealIngredient.ingredient.name,
+        requiredQuantity: mealIngredient.quantity,
+        unit: mealIngredient.unit,
+        userHasIt,
+        includedInOrder,
+      };
+    });
+
+    return {
+      meal: meal.name,
+      ingredients,
+      totalPrice: Math.round(totalPrice * 100) / 100,
+    };
   }
 
   private async ensureExists(id: string): Promise<void> {

@@ -57,6 +57,7 @@ Fields:
 - name
 - category
 - defaultUnit
+- pricePerUnit
 - caloriesPer100g
 - proteinPer100g
 - carbsPer100g

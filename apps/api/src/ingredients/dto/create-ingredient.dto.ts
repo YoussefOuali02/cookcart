@@ -1,4 +1,10 @@
-import { IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+  MinLength,
+} from 'class-validator';
 
 export class CreateIngredientDto {
   @IsString()
@@ -12,6 +18,11 @@ export class CreateIngredientDto {
   @IsString()
   @MinLength(1)
   defaultUnit: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  pricePerUnit?: number;
 
   @IsOptional()
   @IsNumber()

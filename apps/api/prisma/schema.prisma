@@ -54,6 +54,7 @@ model Ingredient {
   name                String   @unique
   category            String?
   defaultUnit         String
+  pricePerUnit        Float    @default(0)
   caloriesPer100g     Float?
   proteinPer100g      Float?
   carbsPer100g        Float?

@@ -41,4 +41,4 @@
 
 ## Day 7
 
-- [ ] Build meal kit preview endpoint
+- [x] Build meal kit preview endpoint
