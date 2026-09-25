@@ -5,6 +5,7 @@
   "description": "B2B SaaS platform for grocery stores to sell customizable meal kits.",
   "scripts": {
     "dev:api": "pnpm --filter api start:dev",
+    "dev:web": "pnpm --filter web dev",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:logs": "docker compose logs -f postgres"

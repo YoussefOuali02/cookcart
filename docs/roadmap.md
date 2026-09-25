@@ -59,13 +59,13 @@ Backend is now complete enough for the full Step 9 demo flow (verified end to en
 
 Goal: Build the first customer-facing version.
 
-Status: Not started
+Status: In progress
 
 Tasks:
 
-- [ ] Scaffold `apps/web` (Next.js + TypeScript + Tailwind), wired to the API with a typed client and JWT stored client-side.
-- [ ] Landing page
-- [ ] Login and register pages
+- [x] Scaffold `apps/web` (Next.js + TypeScript + Tailwind), wired to the API with a typed client and JWT stored client-side.
+- [x] Landing page
+- [x] Login and register pages
 - [ ] Meal list (cards: image, name, cooking time, price estimate, calories)
 - [ ] Meal details page (ingredients with "remove — I already have it" checkboxes, calling `preview-kit` live, final price, add to cart)
 - [ ] Pantry page (add/edit/remove pantry items)
