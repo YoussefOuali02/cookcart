@@ -37,7 +37,7 @@
 
 ## Day 6
 
-- [ ] Build pantry APIs
+- [x] Build pantry APIs
 
 ## Day 7
 
