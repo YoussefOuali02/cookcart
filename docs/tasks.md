@@ -33,7 +33,7 @@
 
 ## Day 5
 
-- [ ] Build ingredients and meals APIs
+- [x] Build ingredients and meals APIs
 
 ## Day 6
 
