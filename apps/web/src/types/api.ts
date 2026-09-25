@@ -78,3 +78,88 @@ export interface MealKitPreview {
   ingredients: MealKitPreviewIngredient[];
   totalPrice: number;
 }
+
+export type MealSummary = Omit<Meal, "ingredients">;
+
+export interface PantryItem {
+  id: string;
+  userId: string;
+  ingredientId: string;
+  quantity: number;
+  unit: string;
+  expiryDate: string | null;
+  alwaysAvailable: boolean;
+  ingredient: Ingredient;
+}
+
+export interface CreatePantryItemInput {
+  ingredientId: string;
+  quantity: number;
+  unit: string;
+  expiryDate?: string;
+  alwaysAvailable?: boolean;
+}
+
+export interface UpdatePantryItemInput {
+  quantity?: number;
+  unit?: string;
+  expiryDate?: string;
+  alwaysAvailable?: boolean;
+}
+
+export interface CartIngredientLine {
+  id: string;
+  cartMealId: string;
+  ingredientId: string;
+  quantity: number;
+  unit: string;
+  price: number;
+  isRemovedByUser: boolean;
+  removalReason: string | null;
+  ingredient: Ingredient;
+}
+
+export interface CartMealLine {
+  id: string;
+  cartId: string;
+  mealId: string;
+  servings: number;
+  meal: MealSummary;
+  ingredients: CartIngredientLine[];
+}
+
+export interface CartResponse {
+  id: string;
+  userId: string;
+  meals: CartMealLine[];
+  totalPrice: number;
+}
+
+export type OrderStatus =
+  | "PENDING"
+  | "PREPARING"
+  | "READY"
+  | "COMPLETED"
+  | "CANCELLED";
+
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  mealId: string | null;
+  ingredientId: string;
+  quantity: number;
+  unit: string;
+  price: number;
+  ingredient: Ingredient;
+  meal: MealSummary | null;
+}
+
+export interface Order {
+  id: string;
+  userId: string;
+  status: OrderStatus;
+  totalPrice: number;
+  createdAt: string;
+  updatedAt: string;
+  items: OrderItem[];
+}
