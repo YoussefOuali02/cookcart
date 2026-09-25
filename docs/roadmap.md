@@ -76,21 +76,26 @@ Tasks:
 
 Goal: Allow grocery store admins to manage the system.
 
-Status: In progress
+Status: Done
 
 Tasks:
 
 - [x] Admin shell (`/admin`), gated by the `ADMIN` role
 - [x] Ingredient management (list/create/edit/delete)
 - [x] Meal management (list/create/edit, assign/unassign ingredients with quantities)
-- [ ] Order management (list, view detail, update status)
-- [ ] Basic analytics (order counts, revenue — keep minimal for MVP)
+- [x] Order management (list, view detail, update status)
+- [x] Basic analytics (total orders, pending count, revenue — kept minimal for MVP)
 
 ## Milestone: First Product Demo (roadmap Step 9)
 
 Goal: Record the full customer + admin flow working end to end in the real UI (not curl).
 
-Status: Not started — backend proven end to end via API, blocked on Phases 3–4 (UI)
+Status: Verified — every step below has been driven end to end in the real UI with a
+headless browser (admin CRUD in the Day 13 test, pantry/cart/checkout in the Day 12
+test, admin-sees-order-and-updates-status/customer-sees-update in the Day 14 test).
+No actual screen recording exists; "Record" here means capture this as a real demo
+video when useful (e.g. for stakeholders), which is a presentation step, not
+further engineering.
 
 Flow to demo:
 
