@@ -22,8 +22,11 @@ export class MealsService {
     private readonly ingredientsService: IngredientsService,
   ) {}
 
-  findAll(): Promise<Meal[]> {
-    return this.prisma.meal.findMany({ orderBy: { name: 'asc' } });
+  findAll(): Promise<MealWithIngredients[]> {
+    return this.prisma.meal.findMany({
+      orderBy: { name: 'asc' },
+      ...mealWithIngredients,
+    });
   }
 
   async findById(id: string): Promise<MealWithIngredients> {

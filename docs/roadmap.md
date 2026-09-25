@@ -66,8 +66,8 @@ Tasks:
 - [x] Scaffold `apps/web` (Next.js + TypeScript + Tailwind), wired to the API with a typed client and JWT stored client-side.
 - [x] Landing page
 - [x] Login and register pages
-- [ ] Meal list (cards: image, name, cooking time, price estimate, calories)
-- [ ] Meal details page (ingredients with "remove — I already have it" checkboxes, calling `preview-kit` live, final price, add to cart)
+- [x] Meal list (cards: image/placeholder, name, cooking time, price estimate, calories)
+- [x] Meal details page (ingredients with "remove — I already have it" checkboxes, pre-checked from `preview-kit`, live price estimate, nutrition, cooking instructions, add to cart)
 - [ ] Pantry page (add/edit/remove pantry items)
 - [ ] Cart page (review kit, toggle removed ingredients, checkout)
 - [ ] Orders page (order history + status)

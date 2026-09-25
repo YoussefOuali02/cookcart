@@ -1,6 +1,8 @@
 import type {
   AuthResult,
   LoginInput,
+  Meal,
+  MealKitPreview,
   RegisterInput,
   SafeUser,
 } from "@/types/api";
@@ -60,4 +62,17 @@ export const api = {
   login: (input: LoginInput) =>
     apiRequest<AuthResult>("/auth/login", { method: "POST", body: input }),
   me: (token: string) => apiRequest<SafeUser>("/auth/me", { token }),
+  listMeals: () => apiRequest<Meal[]>("/meals"),
+  getMeal: (id: string) => apiRequest<Meal>(`/meals/${id}`),
+  previewKit: (id: string, token: string) =>
+    apiRequest<MealKitPreview>(`/meals/${id}/preview-kit`, {
+      method: "POST",
+      token,
+    }),
+  addMealToCart: (mealId: string, token: string) =>
+    apiRequest(`/cart/meals`, {
+      method: "POST",
+      token,
+      body: { mealId },
+    }),
 };

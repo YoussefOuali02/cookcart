@@ -14,6 +14,12 @@ export function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-4 text-sm">
+          <Link
+            href="/meals"
+            className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+          >
+            Meals
+          </Link>
           {isLoading ? null : user ? (
             <>
               <span className="text-zinc-600 dark:text-zinc-400">
