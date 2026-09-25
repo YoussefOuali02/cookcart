@@ -22,10 +22,10 @@
 
 ## Day 3
 
-- [ ] Create Prisma schema
-- [ ] Create migrations
-- [ ] Seed ingredients
-- [ ] Seed meals
+- [x] Create Prisma schema
+- [x] Create migrations
+- [x] Seed ingredients
+- [x] Seed meals
 
 ## Day 4
 
