@@ -86,5 +86,5 @@ still API-only, no UI.
 
 ## Day 14
 
-- [ ] Admin orders page (list, update status)
-- [ ] Record the first full product demo end to end in the real UI (roadmap Step 9)
+- [x] Admin orders page (list, update status)
+- [x] Verify the first full product demo end to end in the real UI (roadmap Step 9)
