@@ -88,6 +88,22 @@ export class MealsService {
     });
   }
 
+  async removeIngredient(mealId: string, ingredientId: string): Promise<void> {
+    const mealIngredient = await this.prisma.mealIngredient.findUnique({
+      where: { mealId_ingredientId: { mealId, ingredientId } },
+    });
+
+    if (!mealIngredient) {
+      throw new NotFoundException(
+        `Ingredient ${ingredientId} is not assigned to meal ${mealId}`,
+      );
+    }
+
+    await this.prisma.mealIngredient.delete({
+      where: { mealId_ingredientId: { mealId, ingredientId } },
+    });
+  }
+
   async previewKit(mealId: string, userId: string): Promise<MealKitPreview> {
     const meal = await this.findById(mealId);
 

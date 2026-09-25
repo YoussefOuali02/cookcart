@@ -40,6 +40,14 @@ export function SiteHeader() {
               >
                 Orders
               </Link>
+              {user.role === "ADMIN" ? (
+                <Link
+                  href="/admin"
+                  className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+                >
+                  Admin
+                </Link>
+              ) : null}
               <span className="text-zinc-600 dark:text-zinc-400">
                 {user.firstName ?? user.email}
               </span>

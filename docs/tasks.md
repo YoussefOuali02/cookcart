@@ -80,9 +80,9 @@ still API-only, no UI.
 
 ## Day 13
 
-- [ ] Admin shell (`/admin`, role-gated)
-- [ ] Admin ingredients page
-- [ ] Admin meals page (create/edit, assign ingredients)
+- [x] Admin shell (`/admin`, role-gated)
+- [x] Admin ingredients page
+- [x] Admin meals page (create/edit, assign ingredients)
 
 ## Day 14
 
