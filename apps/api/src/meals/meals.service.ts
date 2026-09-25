@@ -22,8 +22,11 @@ export class MealsService {
     private readonly ingredientsService: IngredientsService,
   ) {}
 
-  findAll(): Promise<Meal[]> {
-    return this.prisma.meal.findMany({ orderBy: { name: 'asc' } });
+  findAll(): Promise<MealWithIngredients[]> {
+    return this.prisma.meal.findMany({
+      orderBy: { name: 'asc' },
+      ...mealWithIngredients,
+    });
   }
 
   async findById(id: string): Promise<MealWithIngredients> {
@@ -82,6 +85,22 @@ export class MealsService {
         isOptional: dto.isOptional ?? false,
         cookingStep: dto.cookingStep,
       },
+    });
+  }
+
+  async removeIngredient(mealId: string, ingredientId: string): Promise<void> {
+    const mealIngredient = await this.prisma.mealIngredient.findUnique({
+      where: { mealId_ingredientId: { mealId, ingredientId } },
+    });
+
+    if (!mealIngredient) {
+      throw new NotFoundException(
+        `Ingredient ${ingredientId} is not assigned to meal ${mealId}`,
+      );
+    }
+
+    await this.prisma.mealIngredient.delete({
+      where: { mealId_ingredientId: { mealId, ingredientId } },
     });
   }
 

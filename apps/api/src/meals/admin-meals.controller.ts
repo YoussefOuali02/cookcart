@@ -47,4 +47,13 @@ export class AdminMealsController {
   ): Promise<MealIngredient> {
     return this.mealsService.addIngredient(id, dto);
   }
+
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete(':id/ingredients/:ingredientId')
+  removeIngredient(
+    @Param('id') id: string,
+    @Param('ingredientId') ingredientId: string,
+  ): Promise<void> {
+    return this.mealsService.removeIngredient(id, ingredientId);
+  }
 }
