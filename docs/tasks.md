@@ -69,8 +69,8 @@ still API-only, no UI.
 
 ## Day 11
 
-- [ ] Meals list page
-- [ ] Meal details page (live preview-kit, remove-ingredient checkboxes, add to cart)
+- [x] Meals list page
+- [x] Meal details page (live preview-kit, remove-ingredient checkboxes, add to cart)
 
 ## Day 12
 
