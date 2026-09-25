@@ -38,7 +38,7 @@ Tasks:
 
 Goal: Build the heart of CookCart, end to end through checkout.
 
-Status: In progress
+Status: Done (nutrition calculation deferred — not blocking)
 
 Tasks:
 
@@ -46,14 +46,14 @@ Tasks:
 - [x] Compare meal ingredients with user pantry (`POST /meals/:id/preview-kit`)
 - [x] Generate missing ingredient list (`includedInOrder` per ingredient)
 - [x] Calculate price (`totalPrice` from `Ingredient.pricePerUnit`)
-- [ ] Calculate nutrition (sum `caloriesPer100g`/protein/carbs/fat for the meal, scaled by quantity — not started)
+- [ ] Calculate nutrition (sum `caloriesPer100g`/protein/carbs/fat for the meal, scaled by quantity — not started, deferred to whenever a screen actually needs it)
 - [x] Cart APIs: `GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`
   - Adding a meal to cart snapshots the preview-kit-style comparison into `CartMeal`/`CartIngredient` (quantity scaled by `servings`, unit, per-unit `price`, `isRemovedByUser` pre-checked from the pantry) so the customer can toggle ingredients in the cart without recomputing against a pantry that may change.
-- [ ] `POST /cart/checkout`: converts the current cart into an `Order` + `OrderItem` rows, clears the cart, returns the created order.
-- [ ] Order APIs: `GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel` (customer, own orders only).
-- [ ] Admin order APIs: `GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`.
+- [x] `POST /cart/checkout`: converts the current cart into an `Order` + `OrderItem` rows, clears the cart, returns the created order.
+- [x] Order APIs: `GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel` (customer, own orders only; cancel only allowed while `PENDING`).
+- [x] Admin order APIs: `GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`.
 
-This phase is the remaining backend work blocking a real end-to-end demo (Step 9 below).
+Backend is now complete enough for the full Step 9 demo flow (verified end to end via API). What's left is entirely UI (Phases 3–4 below).
 
 ## Phase 3: Customer Web App
 
@@ -94,7 +94,7 @@ Can start in parallel with the later parts of Phase 3 once auth and the admin AP
 
 Goal: Record the full customer + admin flow working end to end in the real UI (not curl).
 
-Status: Not started — blocked on Phases 2–4
+Status: Not started — backend proven end to end via API, blocked on Phases 3–4 (UI)
 
 Flow to demo:
 

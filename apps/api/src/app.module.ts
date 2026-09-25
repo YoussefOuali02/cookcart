@@ -8,6 +8,7 @@ import { IngredientsModule } from './ingredients/ingredients.module';
 import { MealsModule } from './meals/meals.module';
 import { PantryModule } from './pantry/pantry.module';
 import { CartModule } from './cart/cart.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CartModule } from './cart/cart.module';
     MealsModule,
     PantryModule,
     CartModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -54,9 +54,9 @@ Week 3 (QR, mobile, AI, SaaS layer).
 
 ## Day 9
 
-- [ ] Build `POST /cart/checkout` (cart -> Order + OrderItems)
-- [ ] Build customer order APIs (`GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel`)
-- [ ] Build admin order APIs (`GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`)
+- [x] Build `POST /cart/checkout` (cart -> Order + OrderItems)
+- [x] Build customer order APIs (`GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel`)
+- [x] Build admin order APIs (`GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`)
 
 Backend is now complete enough for the full customer + admin flow —
 still API-only, no UI.

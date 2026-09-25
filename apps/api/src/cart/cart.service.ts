@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CartIngredient, CartMeal } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { MealsService } from '../meals/meals.service';
@@ -9,6 +13,10 @@ import {
   CartWithDetails,
   cartWithDetailsArgs,
 } from './interfaces/cart-with-total.interface';
+import {
+  OrderWithItems,
+  orderWithItemsArgs,
+} from '../orders/interfaces/order-with-items.interface';
 
 @Injectable()
 export class CartService {
@@ -87,6 +95,53 @@ export class CartService {
   async removeMeal(userId: string, cartMealId: string): Promise<void> {
     await this.findOwnedMeal(userId, cartMealId);
     await this.prisma.cartMeal.delete({ where: { id: cartMealId } });
+  }
+
+  async checkout(userId: string): Promise<OrderWithItems> {
+    const cart = await this.getOrCreateCart(userId);
+
+    const orderItemsData = cart.meals.flatMap((cartMeal) =>
+      cartMeal.ingredients
+        .filter((cartIngredient) => !cartIngredient.isRemovedByUser)
+        .map((cartIngredient) => ({
+          mealId: cartMeal.mealId,
+          ingredientId: cartIngredient.ingredientId,
+          quantity: cartIngredient.quantity,
+          unit: cartIngredient.unit,
+          price: cartIngredient.price,
+        })),
+    );
+
+    if (orderItemsData.length === 0) {
+      throw new BadRequestException(
+        'Cart has nothing to order — add a meal or keep at least one ingredient',
+      );
+    }
+
+    const totalPrice =
+      Math.round(
+        orderItemsData.reduce(
+          (sum, item) => sum + item.quantity * item.price,
+          0,
+        ) * 100,
+      ) / 100;
+
+    const order = await this.prisma.$transaction(async (tx) => {
+      const created = await tx.order.create({
+        data: {
+          userId,
+          totalPrice,
+          items: { create: orderItemsData },
+        },
+        ...orderWithItemsArgs,
+      });
+
+      await tx.cartMeal.deleteMany({ where: { cartId: cart.id } });
+
+      return created;
+    });
+
+    return order;
   }
 
   private async getOrCreateCart(userId: string): Promise<CartWithDetails> {
