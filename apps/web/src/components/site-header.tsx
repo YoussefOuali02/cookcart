@@ -22,6 +22,24 @@ export function SiteHeader() {
           </Link>
           {isLoading ? null : user ? (
             <>
+              <Link
+                href="/pantry"
+                className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+              >
+                Pantry
+              </Link>
+              <Link
+                href="/cart"
+                className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+              >
+                Cart
+              </Link>
+              <Link
+                href="/orders"
+                className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
+              >
+                Orders
+              </Link>
               <span className="text-zinc-600 dark:text-zinc-400">
                 {user.firstName ?? user.email}
               </span>

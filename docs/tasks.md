@@ -74,9 +74,9 @@ still API-only, no UI.
 
 ## Day 12
 
-- [ ] Pantry page
-- [ ] Cart page (toggle removed ingredients, checkout)
-- [ ] Orders page
+- [x] Pantry page
+- [x] Cart page (toggle removed ingredients, checkout)
+- [x] Orders page
 
 ## Day 13
 

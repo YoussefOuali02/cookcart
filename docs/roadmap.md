@@ -59,7 +59,7 @@ Backend is now complete enough for the full Step 9 demo flow (verified end to en
 
 Goal: Build the first customer-facing version.
 
-Status: In progress
+Status: Done
 
 Tasks:
 
@@ -68,11 +68,9 @@ Tasks:
 - [x] Login and register pages
 - [x] Meal list (cards: image/placeholder, name, cooking time, price estimate, calories)
 - [x] Meal details page (ingredients with "remove — I already have it" checkboxes, pre-checked from `preview-kit`, live price estimate, nutrition, cooking instructions, add to cart)
-- [ ] Pantry page (add/edit/remove pantry items)
-- [ ] Cart page (review kit, toggle removed ingredients, checkout)
-- [ ] Orders page (order history + status)
-
-Depends on the Cart/Order APIs in Phase 2.
+- [x] Pantry page (add/edit/remove pantry items)
+- [x] Cart page (review kit, toggle removed ingredients, checkout)
+- [x] Orders page (order history + status, with cancel while pending)
 
 ## Phase 4: Admin Dashboard
 
