@@ -47,8 +47,8 @@ Tasks:
 - [x] Generate missing ingredient list (`includedInOrder` per ingredient)
 - [x] Calculate price (`totalPrice` from `Ingredient.pricePerUnit`)
 - [ ] Calculate nutrition (sum `caloriesPer100g`/protein/carbs/fat for the meal, scaled by quantity — not started)
-- [ ] Cart APIs: `GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`
-  - Adding a meal to cart should snapshot the preview-kit result into `CartMeal`/`CartIngredient` (quantity, unit, price, `isRemovedByUser`) so the customer can toggle ingredients in the cart without recomputing against a pantry that may change.
+- [x] Cart APIs: `GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`
+  - Adding a meal to cart snapshots the preview-kit-style comparison into `CartMeal`/`CartIngredient` (quantity scaled by `servings`, unit, per-unit `price`, `isRemovedByUser` pre-checked from the pantry) so the customer can toggle ingredients in the cart without recomputing against a pantry that may change.
 - [ ] `POST /cart/checkout`: converts the current cart into an `Order` + `OrderItem` rows, clears the cart, returns the created order.
 - [ ] Order APIs: `GET /orders`, `GET /orders/:id`, `PATCH /orders/:id/cancel` (customer, own orders only).
 - [ ] Admin order APIs: `GET /admin/orders`, `GET /admin/orders/:id`, `PATCH /admin/orders/:id/status`.

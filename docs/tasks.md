@@ -49,8 +49,8 @@ Week 3 (QR, mobile, AI, SaaS layer).
 
 ## Day 8
 
-- [ ] Build cart APIs (`GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`)
-- [ ] Adding a meal snapshots the preview-kit result into `CartMeal`/`CartIngredient`
+- [x] Build cart APIs (`GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`)
+- [x] Adding a meal snapshots the preview-kit result into `CartMeal`/`CartIngredient`
 
 ## Day 9
 
