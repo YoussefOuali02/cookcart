@@ -163,3 +163,43 @@ export interface Order {
   updatedAt: string;
   items: OrderItem[];
 }
+
+export interface AdminOrder extends Order {
+  user: Pick<SafeUser, "id" | "email" | "firstName" | "lastName">;
+}
+
+export interface CreateIngredientInput {
+  name: string;
+  category?: string;
+  defaultUnit: string;
+  pricePerUnit?: number;
+  caloriesPer100g?: number;
+  proteinPer100g?: number;
+  carbsPer100g?: number;
+  fatPer100g?: number;
+  storageInstructions?: string;
+}
+
+export type UpdateIngredientInput = Partial<CreateIngredientInput>;
+
+export interface CreateMealInput {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  cookingTimeMinutes?: number;
+  difficulty?: string;
+  cuisine?: string;
+  dietTags?: string[];
+  instructions?: string;
+  isPublished?: boolean;
+}
+
+export type UpdateMealInput = Partial<CreateMealInput>;
+
+export interface AddMealIngredientInput {
+  ingredientId: string;
+  quantity: number;
+  unit: string;
+  isOptional?: boolean;
+  cookingStep?: number;
+}

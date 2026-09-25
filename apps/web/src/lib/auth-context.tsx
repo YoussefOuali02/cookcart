@@ -123,3 +123,20 @@ export function useRequireAuth(): AuthContextValue {
 
   return auth;
 }
+
+/** Redirects non-admins away once the auth state has resolved. */
+export function useRequireAdmin(): AuthContextValue {
+  const auth = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth.isLoading) return;
+    if (!auth.user) {
+      router.push("/login");
+    } else if (auth.user.role !== "ADMIN") {
+      router.push("/");
+    }
+  }, [auth.isLoading, auth.user, router]);
+
+  return auth;
+}

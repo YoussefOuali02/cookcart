@@ -1,15 +1,23 @@
 import type {
+  AddMealIngredientInput,
+  AdminOrder,
   AuthResult,
   CartResponse,
+  CreateIngredientInput,
+  CreateMealInput,
   CreatePantryItemInput,
   Ingredient,
   LoginInput,
   Meal,
+  MealIngredient,
   MealKitPreview,
   Order,
+  OrderStatus,
   PantryItem,
   RegisterInput,
   SafeUser,
+  UpdateIngredientInput,
+  UpdateMealInput,
   UpdatePantryItemInput,
 } from "@/types/api";
 
@@ -124,4 +132,70 @@ export const api = {
     apiRequest<Order>(`/orders/${id}`, { token }),
   cancelOrder: (id: string, token: string) =>
     apiRequest<Order>(`/orders/${id}/cancel`, { method: "PATCH", token }),
+
+  // Admin: ingredients
+  createIngredient: (input: CreateIngredientInput, token: string) =>
+    apiRequest<Ingredient>("/admin/ingredients", {
+      method: "POST",
+      token,
+      body: input,
+    }),
+  updateIngredient: (
+    id: string,
+    input: UpdateIngredientInput,
+    token: string,
+  ) =>
+    apiRequest<Ingredient>(`/admin/ingredients/${id}`, {
+      method: "PATCH",
+      token,
+      body: input,
+    }),
+  deleteIngredient: (id: string, token: string) =>
+    apiRequest<void>(`/admin/ingredients/${id}`, {
+      method: "DELETE",
+      token,
+    }),
+
+  // Admin: meals
+  createMeal: (input: CreateMealInput, token: string) =>
+    apiRequest<Meal>("/admin/meals", { method: "POST", token, body: input }),
+  updateMeal: (id: string, input: UpdateMealInput, token: string) =>
+    apiRequest<Meal>(`/admin/meals/${id}`, {
+      method: "PATCH",
+      token,
+      body: input,
+    }),
+  deleteMeal: (id: string, token: string) =>
+    apiRequest<void>(`/admin/meals/${id}`, { method: "DELETE", token }),
+  addMealIngredient: (
+    mealId: string,
+    input: AddMealIngredientInput,
+    token: string,
+  ) =>
+    apiRequest<MealIngredient>(`/admin/meals/${mealId}/ingredients`, {
+      method: "POST",
+      token,
+      body: input,
+    }),
+  removeMealIngredient: (
+    mealId: string,
+    ingredientId: string,
+    token: string,
+  ) =>
+    apiRequest<void>(
+      `/admin/meals/${mealId}/ingredients/${ingredientId}`,
+      { method: "DELETE", token },
+    ),
+
+  // Admin: orders
+  listAdminOrders: (token: string) =>
+    apiRequest<AdminOrder[]>("/admin/orders", { token }),
+  getAdminOrder: (id: string, token: string) =>
+    apiRequest<AdminOrder>(`/admin/orders/${id}`, { token }),
+  updateOrderStatus: (id: string, status: OrderStatus, token: string) =>
+    apiRequest<AdminOrder>(`/admin/orders/${id}/status`, {
+      method: "PATCH",
+      token,
+      body: { status },
+    }),
 };

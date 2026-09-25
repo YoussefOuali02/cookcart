@@ -76,17 +76,15 @@ Tasks:
 
 Goal: Allow grocery store admins to manage the system.
 
-Status: Not started
+Status: In progress
 
 Tasks:
 
-- [ ] Admin shell (`/admin`), gated by the `ADMIN` role
-- [ ] Ingredient management (list/create/edit/delete)
-- [ ] Meal management (list/create/edit, assign ingredients with quantities)
+- [x] Admin shell (`/admin`), gated by the `ADMIN` role
+- [x] Ingredient management (list/create/edit/delete)
+- [x] Meal management (list/create/edit, assign/unassign ingredients with quantities)
 - [ ] Order management (list, view detail, update status)
 - [ ] Basic analytics (order counts, revenue — keep minimal for MVP)
-
-Can start in parallel with the later parts of Phase 3 once auth and the admin API surface exist (they already do).
 
 ## Milestone: First Product Demo (roadmap Step 9)
 
