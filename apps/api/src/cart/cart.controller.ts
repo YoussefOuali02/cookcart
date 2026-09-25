@@ -14,6 +14,7 @@ import { CartService } from './cart.service';
 import { AddCartMealDto } from './dto/add-cart-meal.dto';
 import { UpdateCartIngredientDto } from './dto/update-cart-ingredient.dto';
 import { CartResponse } from './interfaces/cart-with-total.interface';
+import { OrderWithItems } from '../orders/interfaces/order-with-items.interface';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { SafeUser } from '../users/user.serializer';
@@ -52,5 +53,10 @@ export class CartController {
     @Param('id') id: string,
   ): Promise<void> {
     return this.cartService.removeMeal(user.id, id);
+  }
+
+  @Post('checkout')
+  checkout(@CurrentUser() user: SafeUser): Promise<OrderWithItems> {
+    return this.cartService.checkout(user.id);
   }
 }
