@@ -63,9 +63,9 @@ still API-only, no UI.
 
 ## Day 10
 
-- [ ] Scaffold `apps/web` (Next.js + TypeScript + Tailwind) with a typed API client and JWT storage
-- [ ] Landing page
-- [ ] Login and register pages
+- [x] Scaffold `apps/web` (Next.js + TypeScript + Tailwind) with a typed API client and JWT storage
+- [x] Landing page
+- [x] Login and register pages
 
 ## Day 11
 
