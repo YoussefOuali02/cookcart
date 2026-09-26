@@ -126,7 +126,6 @@ cookcart/
     web/
   docs/
     product.md
-    roadmap.md
     database.md
     api.md
   README.md
