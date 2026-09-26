@@ -4,3 +4,6 @@ node_modules
 
 /generated/prisma
 *.tsbuildinfo
+prisma/*.js
+prisma/*.js.map
+prisma/*.d.ts
