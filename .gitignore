@@ -8,6 +8,10 @@ dist
 build
 .next
 out
+*.tsbuildinfo
+prisma.config.js
+prisma.config.js.map
+prisma.config.d.ts
 
 # Environment files
 .env
