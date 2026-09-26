@@ -1,0 +1,42 @@
+name: Uptime check
+
+on:
+  schedule:
+    # Hourly. Deliberately not more frequent: the API sleeps on Railway's
+    # free plan when idle, and a tighter interval would just keep it
+    # always-on (defeating sleep, burning more free-tier usage) instead of
+    # actually monitoring anything.
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+env:
+  API_URL: https://api-production-3a7a9.up.railway.app
+  WEB_URL: https://cookcart-web.vercel.app
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check API /health
+        run: |
+          # The API sleeps when idle; a request wakes it, which can take a
+          # few seconds. Retry for up to ~90s before failing for real.
+          for i in $(seq 1 18); do
+            body="$(curl -sf "$API_URL/health" || true)"
+            if echo "$body" | grep -q '"status":"ok"'; then
+              echo "API healthy: $body"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "API did not report healthy after retries. Last response: $body"
+          exit 1
+
+      - name: Check web app responds
+        run: |
+          code="$(curl -s -o /dev/null -w '%{http_code}' "$WEB_URL")"
+          if [ "$code" != "200" ]; then
+            echo "Web app returned HTTP $code"
+            exit 1
+          fi
+          echo "Web app responded 200"
