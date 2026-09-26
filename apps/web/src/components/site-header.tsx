@@ -8,12 +8,12 @@ export function SiteHeader() {
 
   return (
     <header className="border-b border-black/10 dark:border-white/10">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-4 sm:px-6">
         <Link href="/" className="text-lg font-semibold tracking-tight">
           CookCart
         </Link>
 
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm sm:gap-x-4">
           <Link
             href="/meals"
             className="font-medium text-zinc-700 hover:text-black dark:text-zinc-300 dark:hover:text-white"
@@ -48,12 +48,12 @@ export function SiteHeader() {
                   Admin
                 </Link>
               ) : null}
-              <span className="text-zinc-600 dark:text-zinc-400">
+              <span className="max-w-[120px] truncate text-zinc-600 sm:max-w-none dark:text-zinc-400">
                 {user.firstName ?? user.email}
               </span>
               <button
                 onClick={logout}
-                className="rounded-full border border-black/10 px-4 py-1.5 font-medium transition-colors hover:bg-black/[.04] dark:border-white/15 dark:hover:bg-white/[.08]"
+                className="rounded-full border border-black/10 px-4 py-1.5 font-medium whitespace-nowrap transition-colors hover:bg-black/[.04] dark:border-white/15 dark:hover:bg-white/[.08]"
               >
                 Log out
               </button>
