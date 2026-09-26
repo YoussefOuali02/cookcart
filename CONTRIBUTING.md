@@ -40,4 +40,4 @@ Conventional-ish prefixes (`feat:`, `fix:`, `chore:`, `docs:`, `test:`), explain
 
 ## Roadmap
 
-`docs/roadmap.md` is the source of truth for what's done and what's next. Phases 5-9 are tracked as GitHub issues on the linked Project board — keep both in sync when a phase's status changes.
+Tracked as GitHub issues on the linked Project board — that's the source of truth for what's done and what's next, not a file in the repo.
