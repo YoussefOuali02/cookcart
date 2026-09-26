@@ -256,7 +256,7 @@ export default function MealDetailPage() {
               </span>
             </div>
 
-            {isAuthLoading ? null : user ? (
+            {isAuthLoading ? null : user?.role === "CUSTOMER" ? (
               <div className="mt-4">
                 <button
                   onClick={handleAddToCart}
@@ -276,6 +276,10 @@ export default function MealDetailPage() {
                   </p>
                 ) : null}
               </div>
+            ) : user?.role === "ADMIN" ? (
+              <p className="mt-4 text-center text-sm text-zinc-500">
+                Admin accounts can&apos;t place orders.
+              </p>
             ) : (
               <Link
                 href="/login"

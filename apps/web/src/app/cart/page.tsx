@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRequireAuth } from "@/lib/auth-context";
+import { useRequireCustomer } from "@/lib/auth-context";
 import { api, ApiError } from "@/lib/api-client";
 import type { CartResponse } from "@/types/api";
 
 export default function CartPage() {
-  const { user, token } = useRequireAuth();
+  const { user, token } = useRequireCustomer();
   const router = useRouter();
 
   const [cart, setCart] = useState<CartResponse | null>(null);
