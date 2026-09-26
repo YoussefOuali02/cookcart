@@ -7,3 +7,6 @@ node_modules
 prisma/*.js
 prisma/*.js.map
 prisma/*.d.ts
+/prisma.config.js
+/prisma.config.js.map
+/prisma.config.d.ts

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DATABASE_URL: postgresql://cookcart:cookcart_password@localhost:5432/cookcart_db
+  JWT_SECRET: ci-only-secret
+  JWT_EXPIRES_IN: 1d
+  CORS_ORIGIN: http://localhost:3001
+  PORT: 3000
+  NEXT_PUBLIC_API_URL: http://localhost:3000
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: cookcart
+          POSTGRES_PASSWORD: cookcart_password
+          POSTGRES_DB: cookcart_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U cookcart"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint API
+        run: pnpm --filter api lint
+
+      - name: Lint web
+        run: pnpm --filter web lint
+
+      - name: Apply database migrations
+        run: pnpm --filter api exec prisma migrate deploy
+
+      - name: API unit tests
+        run: pnpm --filter api test
+
+      - name: API e2e tests
+        run: pnpm --filter api test:e2e
+
+      - name: Build web
+        run: pnpm --filter web build
