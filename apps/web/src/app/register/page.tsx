@@ -50,7 +50,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
           <div className="flex gap-3">
-            <div className="flex flex-1 flex-col gap-1.5">
+            <div className="flex min-w-0 flex-1 flex-col gap-1.5">
               <label htmlFor="firstName" className="text-sm font-medium">
                 First name
               </label>
@@ -60,10 +60,10 @@ export default function RegisterPage() {
                 autoComplete="given-name"
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
-                className="rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-black/30 dark:border-white/15 dark:bg-zinc-900 dark:focus:border-white/40"
+                className="w-full min-w-0 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-black/30 dark:border-white/15 dark:bg-zinc-900 dark:focus:border-white/40"
               />
             </div>
-            <div className="flex flex-1 flex-col gap-1.5">
+            <div className="flex min-w-0 flex-1 flex-col gap-1.5">
               <label htmlFor="lastName" className="text-sm font-medium">
                 Last name
               </label>
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                 autoComplete="family-name"
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
-                className="rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-black/30 dark:border-white/15 dark:bg-zinc-900 dark:focus:border-white/40"
+                className="w-full min-w-0 rounded-lg border border-black/10 bg-white px-3 py-2 text-sm outline-none focus:border-black/30 dark:border-white/15 dark:bg-zinc-900 dark:focus:border-white/40"
               />
             </div>
           </div>
