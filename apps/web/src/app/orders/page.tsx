@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRequireAuth } from "@/lib/auth-context";
+import { useRequireCustomer } from "@/lib/auth-context";
 import { api, ApiError } from "@/lib/api-client";
 import { OrderStatusBadge } from "@/components/order-status-badge";
 import type { Order } from "@/types/api";
 
 export default function OrdersPage() {
-  const { user, token } = useRequireAuth();
+  const { user, token } = useRequireCustomer();
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
