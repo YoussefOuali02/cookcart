@@ -38,7 +38,7 @@ Tasks:
 
 Goal: Build the heart of CookCart, end to end through checkout.
 
-Status: Done (nutrition calculation deferred — not blocking)
+Status: Done
 
 Tasks:
 
@@ -46,7 +46,7 @@ Tasks:
 - [x] Compare meal ingredients with user pantry (`POST /meals/:id/preview-kit`)
 - [x] Generate missing ingredient list (`includedInOrder` per ingredient)
 - [x] Calculate price (`totalPrice` from `Ingredient.pricePerUnit`)
-- [ ] Calculate nutrition (sum `caloriesPer100g`/protein/carbs/fat for the meal, scaled by quantity — not started, deferred to whenever a screen actually needs it)
+- [x] Calculate nutrition (`apps/web/src/lib/meal-estimates.ts` sums calories/protein/carbs/fat client-side from ingredient data, scaled by quantity and adjusted for removed ingredients)
 - [x] Cart APIs: `GET /cart`, `POST /cart/meals`, `PATCH /cart/ingredients/:id`, `DELETE /cart/meals/:id`
   - Adding a meal to cart snapshots the preview-kit-style comparison into `CartMeal`/`CartIngredient` (quantity scaled by `servings`, unit, per-unit `price`, `isRemovedByUser` pre-checked from the pantry) so the customer can toggle ingredients in the cart without recomputing against a pantry that may change.
 - [x] `POST /cart/checkout`: converts the current cart into an `Order` + `OrderItem` rows, clears the cart, returns the created order.
@@ -109,7 +109,55 @@ Flow to demo:
 8. Admin sees the order
 9. Admin updates status to Preparing
 
-## Phase 5: QR Code System
+## Milestone: Production Deployment
+
+Goal: Get the verified MVP running on real infrastructure, not just localhost.
+
+Status: Done
+
+- [x] API deployed on Railway, database on Neon Postgres (migrated off Railway's own
+  Postgres after discovering its free-tier sleep mode is incompatible with a
+  TCP-only database — Neon's autosuspend wakes correctly on a real Postgres
+  connection, Railway's did not)
+- [x] Customer web app + admin dashboard deployed on Vercel, auto-deploying from `main`
+- [x] CORS wired between the two, admin/customer role gating verified against the
+  live database
+- [x] Seed data live: 26 ingredients and 10 meals, including 4 Tunisian dishes
+  (Tunisian Couscous, Brik a l'oeuf, Lablabi, Salade Mechouia)
+- [x] Verified responsive on mobile, tablet (portrait + landscape), and desktop —
+  two real layout bugs found and fixed (header nav overflow, flex-shrink issues
+  on the register form and admin layout)
+- [x] Admin accounts separated from customer actions — an admin can no longer
+  add to cart, check out, or place orders; API-level (403) and UI-level enforced
+
+Rethink point: the roadmap below was written before deployment, when "what feature
+comes next" was the only question. Now that this is live infrastructure, the more
+honest question is "what breaks first if a real grocery store actually uses this" —
+which reordered everything that follows. The original Phase 5–8 plan (QR → Mobile →
+AI → SaaS layer) is superseded by the phases below.
+
+## Phase 5: Production Hardening
+
+Goal: Make the deployed product trustworthy before a real store or customer
+depends on it. Currently the only test coverage in the repo is the default
+NestJS/Next.js boilerplate stubs — zero coverage on auth, cart, checkout, or
+orders — and there is no CI, no error monitoring, and no real meal photography
+(every meal card is a generated color gradient with a letter).
+
+Status: Not started
+
+Tasks:
+
+- [ ] Automated tests for auth, cart, checkout, and orders — the actual business
+  logic, not the framework scaffolding
+- [ ] CI pipeline: run lint + tests on every push/PR, block merges on failure
+- [ ] Error monitoring on both API and web (e.g. Sentry) — right now a production
+  exception is invisible unless someone happens to be reading Railway logs
+- [ ] Real meal photography (or at minimum AI-generated images) to replace the
+  gradient placeholders
+- [ ] Basic uptime check / alerting on the API
+
+## Phase 6: QR Code System
 
 Goal: Add QR-enabled ingredient package details.
 
@@ -120,31 +168,33 @@ Tasks:
 - [ ] Generate a QR code per order item
 - [ ] QR opens `/qr/:code`
 - [ ] `/qr/:code` page shows ingredient details and the relevant cooking step
+- [ ] Scanned via the phone's browser camera — no native app required (see the
+  cut Mobile App phase below for why)
 - [ ] No package printing in v1
 
-## Phase 6: Mobile App
+## Phase 7: Pilot-Store Readiness
 
-Goal: Build the mobile app.
+Goal: Make it realistic for one real grocery store to actually onboard and run
+on this for a trial period, not just survive a demo.
 
 Status: Not started
 
 Tasks:
 
-- [ ] React Native / Expo setup (`apps/mobile`)
-- [ ] Authentication
-- [ ] Meals
-- [ ] Meal details
-- [ ] Pantry
-- [ ] Cart
-- [ ] Orders
-- [ ] QR scanner
-- [ ] Cooking instructions
+- [ ] CSV import for ingredients and meals — a real store has a catalog of
+  hundreds of SKUs; hand-entering them one at a time through the admin UI
+  doesn't scale even for a pilot
+- [ ] Order confirmation / status-change email notifications (customer gets
+  emailed when their order moves to Preparing/Ready/etc.)
+- [ ] Security review pass: rate limiting on auth endpoints, input validation
+  audit, dependency vuln scan
+- [ ] Decide the paid-infra question — Railway/Neon free tiers are fine for a
+  pilot but reassess once there's real, unpredictable traffic
 
-Uses the same backend as web — no new API work expected beyond what Phases 2–5 already built.
+## Phase 8: AI Recommendation Assistant
 
-## Phase 7: AI Recommendation Assistant
-
-Goal: Add intelligent meal suggestions, after the product already works.
+Goal: Add intelligent meal suggestions, once the core product is solid and
+actually running for real users — not before.
 
 Status: Not started
 
@@ -155,11 +205,16 @@ Tasks:
 
 Guardrail: AI never controls prices, allergies, or core ordering logic — recommendation only.
 
-## Phase 8: SaaS Business Layer
+## Phase 9: SaaS Business Layer
 
-Goal: Prepare the app for real grocery stores.
+Goal: Turn CookCart from a single-store product into a multi-tenant business.
 
 Status: Not started
+
+Deliberately last: this is the largest single investment on the roadmap
+(multi-tenancy, billing, platform admin), and it only pays off once a real
+pilot store has validated that someone will actually pay for this. Building
+it earlier is designing for a hypothetical instead of a validated need.
 
 Tasks:
 
@@ -168,3 +223,11 @@ Tasks:
 - [ ] Store onboarding
 - [ ] Stripe subscriptions
 - [ ] Platform admin
+
+## Cut: Mobile App
+
+The original plan had a React Native/Expo app as Phase 6. Deferred indefinitely:
+the web app is already responsive on mobile, QR scanning (Phase 6 above) works
+fine through a phone's browser camera, and a native app is real ongoing
+maintenance cost for a product with zero pilot customers yet. Revisit only if a
+real user base specifically asks for an installable app — not before.
