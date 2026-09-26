@@ -144,13 +144,16 @@ NestJS/Next.js boilerplate stubs — zero coverage on auth, cart, checkout, or
 orders — and there is no CI, no error monitoring, and no real meal photography
 (every meal card is a generated color gradient with a letter).
 
-Status: Not started
+Status: In progress
 
 Tasks:
 
-- [ ] Automated tests for auth, cart, checkout, and orders — the actual business
-  logic, not the framework scaffolding
-- [ ] CI pipeline: run lint + tests on every push/PR, block merges on failure
+- [x] Automated tests for auth, cart, checkout, and orders — the actual business
+  logic, not the framework scaffolding (20 e2e tests + 1 unit test, run over
+  HTTP against a real running server — see `apps/api/test/`)
+- [x] CI pipeline: run lint + tests on every push/PR, block merges on failure
+  (`.github/workflows/ci.yml` — lint, prisma generate, migrate, unit tests,
+  e2e tests, web build)
 - [ ] Error monitoring on both API and web (e.g. Sentry) — right now a production
   exception is invisible unless someone happens to be reading Railway logs
 - [ ] Real meal photography (or at minimum AI-generated images) to replace the
