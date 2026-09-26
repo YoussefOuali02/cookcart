@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { useRequireAuth } from "@/lib/auth-context";
+import { useRequireCustomer } from "@/lib/auth-context";
 import { api, ApiError } from "@/lib/api-client";
 import type { Ingredient, PantryItem } from "@/types/api";
 
 export default function PantryPage() {
-  const { user, token } = useRequireAuth();
+  const { user, token } = useRequireCustomer();
 
   const [items, setItems] = useState<PantryItem[] | null>(null);
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);

@@ -10,14 +10,18 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { UserRole } from '@prisma/client';
 import { PantryService, PantryItemWithIngredient } from './pantry.service';
 import { CreatePantryItemDto } from './dto/create-pantry-item.dto';
 import { UpdatePantryItemDto } from './dto/update-pantry-item.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { SafeUser } from '../users/user.serializer';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.CUSTOMER)
 @Controller('pantry')
 export class PantryController {
   constructor(private readonly pantryService: PantryService) {}

@@ -140,3 +140,20 @@ export function useRequireAdmin(): AuthContextValue {
 
   return auth;
 }
+
+/** Redirects admins away once the auth state has resolved — pantry/cart/orders are customer-only. */
+export function useRequireCustomer(): AuthContextValue {
+  const auth = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth.isLoading) return;
+    if (!auth.user) {
+      router.push("/login");
+    } else if (auth.user.role !== "CUSTOMER") {
+      router.push("/admin");
+    }
+  }, [auth.isLoading, auth.user, router]);
+
+  return auth;
+}
